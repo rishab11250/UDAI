@@ -46,8 +46,17 @@ function App() {
     loadData();
   }, []);
 
-  const aggregatedData = aggregateData(data);
-  const contextValue = { data, aggregatedData, isLoading };
+  // Filter Data Logic
+  const filteredData = React.useMemo(() => {
+    return data.filter(item => {
+      const yearMatch = selectedYear ? item.year === parseInt(selectedYear) : true;
+      const stateMatch = selectedState ? item.state === selectedState : true;
+      return yearMatch && stateMatch;
+    });
+  }, [data, selectedYear, selectedState]);
+
+  const aggregatedData = aggregateData(filteredData);
+  const contextValue = { data: filteredData, aggregatedData, isLoading };
 
   const renderContent = () => {
     if (isLoading) {
