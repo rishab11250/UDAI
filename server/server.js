@@ -12,6 +12,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const SECRET_KEY = process.env.JWT_SECRET || 'your-secret-key-123';
 
+// Serve static files from the React app
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+app.use(express.static(join(__dirname, '../dist')));
 app.use(cors());
 app.use(express.json());
 
@@ -68,6 +74,11 @@ app.post('/api/auth/login', (req, res) => {
             user: { id: user.id, name: user.name, email: user.email }
         });
     });
+});
+
+// Fallback to React app for any other requests
+app.get('*', (req, res) => {
+    res.sendFile(join(__dirname, '../dist/index.html'));
 });
 
 app.listen(PORT, () => {
