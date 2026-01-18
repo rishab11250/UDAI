@@ -1,6 +1,7 @@
 import React from 'react';
-import { Home, Activity, Fingerprint, Map, Menu } from 'lucide-react';
+import { Home, Activity, Fingerprint, Map, Menu, LogOut } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { useAuth } from '../../context/AuthContext';
 
 const NAV_ITEMS = [
     { label: 'Overview', icon: Home, id: 'overview' },
@@ -10,6 +11,7 @@ const NAV_ITEMS = [
 ];
 
 export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile }) {
+    const { logout } = useAuth();
     return (
         <>
             {/* Mobile overlay */}
@@ -56,12 +58,22 @@ export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile })
                     })}
                 </nav>
 
-                <div className="absolute bottom-4 left-4 right-4 p-4 bg-slate-800/50 rounded-xl border border-slate-800">
-                    <p className="text-xs text-slate-500 mb-1">System Status</p>
-                    <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                        <span className="text-sm text-slate-300">Live Data Feed</span>
+                <div className="absolute bottom-4 left-4 right-4 p-4 space-y-4">
+                    <div className="bg-slate-800/50 rounded-xl border border-slate-800 p-4">
+                        <p className="text-xs text-slate-500 mb-1">System Status</p>
+                        <div className="flex items-center gap-2">
+                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                            <span className="text-sm text-slate-300">Live Data Feed</span>
+                        </div>
                     </div>
+
+                    <button
+                        onClick={logout}
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-red-400 hover:bg-red-950/20 hover:text-red-300 transition-colors border border-transparent hover:border-red-900/30"
+                    >
+                        <LogOut className="w-5 h-5" />
+                        Sign Out
+                    </button>
                 </div>
             </div>
         </>
