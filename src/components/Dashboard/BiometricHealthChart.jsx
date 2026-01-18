@@ -3,7 +3,7 @@ import { ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 import { Card, CardHeader } from '../UI/Card';
 import { AlertCircle } from 'lucide-react';
 import { aggregateData } from '../../data/api';
-import { DataContext } from '../../App';
+import { DataContext } from '../../context/DataContext';
 
 // Component
 export function BiometricHealthChart() {

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Card } from '../UI/Card';
 import { Users, Fingerprint, MapPin, Smartphone } from 'lucide-react';
-import { DataContext } from '../../App';
+import { DataContext } from '../../context/DataContext';
 
 function calculateMetrics(data) {
     let totalEnrolments = 0;

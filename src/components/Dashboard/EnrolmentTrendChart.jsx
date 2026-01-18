@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Card, CardHeader } from '../UI/Card';
-import { DataContext } from '../../App';
+import { DataContext } from '../../context/DataContext';
 
 // Aggregate data by period (month-year)
 const processData = (data) => {

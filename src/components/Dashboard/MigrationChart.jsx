@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 import { Card, CardHeader } from '../UI/Card';
 import { aggregateData } from '../../data/api';
-import { DataContext } from '../../App';
+import { DataContext } from '../../context/DataContext';
 
 export function MigrationChart() {
     const { data: rawData } = useContext(DataContext);
