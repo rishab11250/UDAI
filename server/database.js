@@ -25,6 +25,18 @@ const db = new sqlite3.Database(dbPath, (err) => {
                 console.log("Users table ready");
             }
         });
+
+        db.run(`CREATE TABLE IF NOT EXISTS audit_logs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
+            action TEXT,
+            details TEXT,
+            timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY(user_id) REFERENCES users(id)
+        )`, (err) => {
+            if (err) console.error("Error creating audit_logs table", err);
+            else console.log("Audit Logs table ready");
+        });
     }
 });
 

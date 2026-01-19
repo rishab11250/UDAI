@@ -91,7 +91,80 @@ export function Profile() {
                         </button>
                     </div>
                 </div>
+
+                {/* Security Logs Section */}
+                <div className="mt-8">
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Security Activity</h2>
+                    <SecurityLogs />
+                </div>
             </div>
         </DashboardLayout>
+    );
+}
+
+function SecurityLogs() {
+    const [logs, setLogs] = React.useState([]);
+    const { user } = useAuth(); // To trigger re-fetch if needed
+
+    React.useEffect(() => {
+        const fetchLogs = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+            try {
+                const res = await fetch('http://localhost:3000/api/logs', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    setLogs(data);
+                }
+            } catch (err) {
+                console.error("Failed to fetch logs", err);
+            }
+        };
+        fetchLogs();
+    }, []);
+
+    if (logs.length === 0) {
+        return (
+            <div className="text-center py-8 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-800">
+                <Shield className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+                <p className="text-slate-500 dark:text-slate-400">No recent activity found.</p>
+            </div>
+        );
+    }
+
+    return (
+        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+            <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                    <thead className="text-xs text-slate-500 dark:text-slate-400 uppercase bg-slate-50 dark:bg-slate-950/50 border-b border-slate-100 dark:border-slate-800">
+                        <tr>
+                            <th className="px-6 py-3">Action</th>
+                            <th className="px-6 py-3">Details</th>
+                            <th className="px-6 py-3">Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                        {logs.map((log) => (
+                            <tr key={log.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
+                                <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
+                                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${log.action === 'LOGIN' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' :
+                                            log.action === 'REGISTER' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' :
+                                                'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300'
+                                        }`}>
+                                        {log.action}
+                                    </span>
+                                </td>
+                                <td className="px-6 py-4 text-slate-600 dark:text-slate-300">{log.details}</td>
+                                <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                                    {new Date(log.timestamp).toLocaleString()}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 }

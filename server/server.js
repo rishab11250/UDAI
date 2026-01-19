@@ -26,6 +26,16 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
+// Helper to log user activity
+const logActivity = (userId, action, details) => {
+    db.run("INSERT INTO audit_logs (user_id, action, details) VALUES (?, ?, ?)",
+        [userId, action, details],
+        (err) => {
+            if (err) console.error("Failed to log activity:", err);
+        }
+    );
+};
+
 // Serve static files from the React app
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -58,6 +68,7 @@ app.post('/api/auth/register', (req, res) => {
             message: "User registered successfully",
             userId: this.lastID
         });
+        logActivity(this.lastID, "REGISTER", `User registered as ${userRole}`);
     });
     stmt.finalize();
 });
@@ -88,6 +99,7 @@ app.post('/api/auth/login', (req, res) => {
             accessToken: token,
             user: { id: user.id, name: user.name, email: user.email, role: user.role }
         });
+        logActivity(user.id, "LOGIN", "User logged in successfully");
     });
 });
 
