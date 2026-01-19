@@ -8,11 +8,11 @@ export default {
         extend: {
             colors: {
                 brand: {
-                    base: '#CFDBD5',    // Grayish Cyan - Background
-                    surface: '#E8EDDF', // Off White - Cards
-                    accent: '#F5CB5C',  // Saffron - Primary Action/Highlight
-                    dark: '#333533',    // Jet - Secondary Text/Borders
-                    darker: '#242423',  // Raisin Black - Sidebar/Headings
+                    base: '#f0f9ff',    // Sky 50 - Very light, airy blue tint
+                    surface: '#ffffff', // White - Clean cards
+                    accent: '#4f46e5',  // Indigo 600 - Vibrant, energetic
+                    dark: '#e0e7ff',    // Indigo 100 - Soft borders
+                    darker: '#1e1b4b',  // Indigo 950 - Deep rich text
                 }
             }
         },

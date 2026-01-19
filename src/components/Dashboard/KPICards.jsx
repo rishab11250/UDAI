@@ -41,32 +41,32 @@ export function KPICards() {
             label: 'Total Enrolments',
             value: metrics.totalEnrolments.toLocaleString(),
             icon: Users,
-            color: 'text-brand-darker',
-            bg: 'bg-brand-accent',
+            color: 'text-indigo-600',
+            bg: 'bg-indigo-50',
             trend: 'Aggregated View'
         },
         {
             label: 'MBU Compliance',
             value: `${metrics.mbuCompliance.toFixed(1)}%`,
             icon: Fingerprint,
-            color: 'text-brand-darker',
-            bg: 'bg-brand-accent',
+            color: 'text-violet-600',
+            bg: 'bg-violet-50',
             trend: 'Bio / Child Enrol'
         },
         {
             label: 'Migration Intensity',
             value: `${metrics.migrationIntensity.toFixed(1)}%`,
             icon: MapPin,
-            color: 'text-brand-darker',
-            bg: 'bg-brand-accent',
+            color: 'text-blue-600',
+            bg: 'bg-blue-50',
             trend: 'Addr / Enrol'
         },
         {
             label: 'Digital Readiness',
             value: `${metrics.digitalReadiness.toFixed(1)}%`,
             icon: Smartphone,
-            color: 'text-brand-darker',
-            bg: 'bg-brand-accent',
+            color: 'text-brand-accent',
+            bg: 'bg-brand-accent/10',
             trend: 'Mobile / Updates'
         }
     ];
@@ -76,14 +76,14 @@ export function KPICards() {
             {cards.map((card, idx) => {
                 const Icon = card.icon;
                 return (
-                    <Card key={idx} className="flex items-center gap-4 border-brand-base/40">
-                        <div className={`p-3 rounded-lg ${card.bg} shadow-sm`}>
+                    <Card key={idx} className="flex items-center gap-4">
+                        <div className={`p-3 rounded-lg ${card.bg}`}>
                             <Icon className={`w-6 h-6 ${card.color}`} />
                         </div>
                         <div>
-                            <p className="text-sm font-medium text-brand-dark/70">{card.label}</p>
-                            <h3 className="text-2xl font-bold text-brand-darker">{card.value}</h3>
-                            <p className="text-xs text-brand-dark/50 mt-1">{card.trend}</p>
+                            <p className="text-sm font-medium text-slate-500">{card.label}</p>
+                            <h3 className="text-2xl font-bold text-slate-900">{card.value}</h3>
+                            <p className="text-xs text-slate-400 mt-1">{card.trend}</p>
                         </div>
                     </Card>
                 );
