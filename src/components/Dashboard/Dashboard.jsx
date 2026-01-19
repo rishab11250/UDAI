@@ -13,11 +13,14 @@ import { DataContext } from '../../context/DataContext';
 
 import { useAuth } from '../../context/AuthContext';
 
+import { StateComparison } from './StateComparison';
+
 export function Dashboard() {
     const { user } = useAuth();
     const [activeTab, setActiveTab] = useState('overview');
     const [selectedYear, setSelectedYear] = useState('');
     const [selectedState, setSelectedState] = useState('');
+    const [showComparison, setShowComparison] = useState(false);
 
     // Data State - Default to empty
     const [data, setData] = useState([]);
@@ -194,7 +197,12 @@ export function Dashboard() {
                     selectedState={selectedState}
                     onYearChange={setSelectedYear}
                     onStateChange={setSelectedState}
+                    onCompareToggle={() => setShowComparison(!showComparison)}
                 />
+
+                {showComparison && (
+                    <StateComparison onClose={() => setShowComparison(false)} />
+                )}
 
                 <div className="animate-in fade-in duration-500 min-h-[500px]">
                     {/* Hack: We need to pass props to children, but they are hardcoded in renderFunctions. 

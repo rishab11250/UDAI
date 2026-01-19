@@ -2,15 +2,23 @@ import React from 'react';
 import { Filter } from 'lucide-react';
 import { STATE_LIST } from '../../data/api';
 
-export function FilterBar({ onYearChange, onStateChange, selectedState, selectedYear }) {
+export function FilterBar({ onYearChange, onStateChange, selectedState, selectedYear, onCompareToggle }) {
     // Generate last 5 years
     const years = Array.from({ length: 5 }, (_, i) => new Date().getFullYear() - i);
 
     return (
         <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="flex items-center gap-2 text-slate-600">
-                <Filter className="w-5 h-5" />
-                <span className="font-medium">Filters</span>
+            <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 text-slate-600">
+                    <Filter className="w-5 h-5" />
+                    <span className="font-medium">Filters</span>
+                </div>
+                <button
+                    onClick={onCompareToggle}
+                    className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-lg hover:bg-indigo-100 transition-colors border border-indigo-200"
+                >
+                    Compare States
+                </button>
             </div>
 
             <div className="flex gap-4 w-full md:w-auto">
