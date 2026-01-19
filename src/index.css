@@ -6,6 +6,8 @@
   }
 
   .dark body {
-    @apply bg-slate-950 text-slate-50;
+    @apply text-slate-50;
+    background: radial-gradient(circle at top center, #1e293b, #020617);
+    min-height: 100vh;
   }
 }

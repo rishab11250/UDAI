@@ -30,7 +30,7 @@ export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile })
             )}
 
             <div className={cn(
-                "fixed md:static inset-y-0 left-0 z-30 w-64 bg-slate-900 text-white transform transition-transform duration-200 ease-in-out md:translate-x-0",
+                "fixed md:static inset-y-0 left-0 z-30 w-64 bg-slate-900/90 backdrop-blur-xl border-r border-white/5 text-white transform transition-transform duration-200 ease-in-out md:translate-x-0",
                 isMobileOpen ? "translate-x-0" : "-translate-x-full"
             )}>
                 <div className="p-6 border-b border-slate-800 flex items-center gap-3">
