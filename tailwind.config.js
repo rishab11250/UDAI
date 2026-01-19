@@ -8,11 +8,12 @@ export default {
         extend: {
             colors: {
                 brand: {
-                    base: '#f0f9ff',    // Sky 50 - Very light, airy blue tint
-                    surface: '#ffffff', // White - Clean cards
-                    accent: '#4f46e5',  // Indigo 600 - Vibrant, energetic
-                    dark: '#e0e7ff',    // Indigo 100 - Soft borders
-                    darker: '#1e1b4b',  // Indigo 950 - Deep rich text
+                    base: '#FDF0D5',    // Cream - Background
+                    surface: '#ffffff', // White - Cards
+                    accent: '#C1121F',  // Red - Primary Action
+                    'accent-dark': '#780000', // Dark Red - Hover
+                    primary: '#003049', // Prussian Blue - Sidebar/Text
+                    secondary: '#669BBC', // Air Blue - Secondary
                 }
             }
         },

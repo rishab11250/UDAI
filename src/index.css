@@ -3,7 +3,7 @@
 @layer base {
   body {
     body {
-      @apply bg-brand-base text-brand-darker;
+      @apply bg-brand-base text-brand-primary;
     }
   }
 }
