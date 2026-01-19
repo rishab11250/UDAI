@@ -111,7 +111,8 @@ function SecurityLogs() {
             const token = localStorage.getItem('token');
             if (!token) return;
             try {
-                const res = await fetch('http://localhost:3000/api/logs', {
+                const API_URL = import.meta.env.PROD ? '' : 'http://localhost:3000';
+                const res = await fetch(`${API_URL}/api/logs`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
