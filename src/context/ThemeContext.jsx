@@ -3,33 +3,16 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-    // Check localStorage or system preference on initial load
-    const [theme, setTheme] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                return savedTheme;
-            }
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                return 'dark';
-            }
-        }
-        return 'light';
-    });
+    // Force Light Mode as per user request
+    const [theme] = useState('light');
 
     useEffect(() => {
         const root = window.document.documentElement;
-        if (theme === 'dark') {
-            root.classList.add('dark');
-        } else {
-            root.classList.remove('dark');
-        }
-        localStorage.setItem('theme', theme);
-    }, [theme]);
+        root.classList.remove('dark');
+        localStorage.removeItem('theme');
+    }, []);
 
-    const toggleTheme = () => {
-        setTheme(prev => prev === 'light' ? 'dark' : 'light');
-    };
+    const toggleTheme = () => { }; // No-op
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme }}>

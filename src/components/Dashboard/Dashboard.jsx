@@ -100,14 +100,39 @@ export function Dashboard() {
         }
 
         if (role === 'Manager') {
-            // Managers see high-level KPIs and Enrolment Trends (Financials/Growth)
+            // Managers see high-level KPIs and relevant charts for the section
             switch (activeTab) {
                 case 'overview':
                     return (
                         <>
                             <KPICards />
                             <EnrolmentTrendChart />
+                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                                <MigrationChart />
+                                <DigitalReadinessChart />
+                            </div>
                         </>
+                    );
+                case 'demographic':
+                    return (
+                        <div className="space-y-8">
+                            <KPICards />
+                            <EnrolmentTrendChart />
+                        </div>
+                    );
+                case 'biometric':
+                    return (
+                        <div className="space-y-8">
+                            <KPICards />
+                            <BiometricHealthChart />
+                        </div>
+                    );
+                case 'migration':
+                    return (
+                        <div className="space-y-8">
+                            <KPICards />
+                            <MigrationChart />
+                        </div>
                     );
                 default:
                     return <KPICards />;

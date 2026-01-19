@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Activity, Fingerprint, Map, Menu, LogOut, User, Moon, Sun } from 'lucide-react';
+import { Home, Activity, Fingerprint, Map, Menu, LogOut, User } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 import { useAuth } from '../../context/AuthContext';
@@ -30,14 +30,14 @@ export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile })
             )}
 
             <div className={cn(
-                "fixed md:static inset-y-0 left-0 z-30 w-64 bg-slate-900/90 backdrop-blur-xl border-r border-white/5 text-white transform transition-transform duration-200 ease-in-out md:translate-x-0",
+                "fixed md:static inset-y-0 left-0 z-30 w-64 bg-white border-r border-slate-200 text-slate-800 transform transition-transform duration-200 ease-in-out md:translate-x-0 shadow-xl md:shadow-none",
                 isMobileOpen ? "translate-x-0" : "-translate-x-full"
             )}>
-                <div className="p-6 border-b border-slate-800 flex items-center gap-3">
-                    <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center">
+                <div className="p-6 border-b border-slate-100 flex items-center gap-3">
+                    <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center shadow-sm">
                         <Fingerprint className="text-white w-5 h-5" />
                     </div>
-                    <h1 className="text-xl font-bold tracking-tight">Aadhaar<span className="text-teal-500">Pulse</span></h1>
+                    <h1 className="text-xl font-bold tracking-tight text-slate-900">Aadhaar<span className="text-teal-600">Pulse</span></h1>
                 </div>
 
                 <nav className="p-4 space-y-2">
@@ -68,13 +68,13 @@ export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile })
                                     onCloseMobile();
                                 }}
                                 className={cn(
-                                    "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors",
+                                    "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200",
                                     isActive
-                                        ? "bg-teal-600/10 text-teal-400 border border-teal-600/20"
-                                        : "text-slate-400 hover:bg-slate-800 hover:text-white"
+                                        ? "bg-teal-50 text-teal-700 shadow-sm ring-1 ring-teal-200"
+                                        : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
                                 )}
                             >
-                                <Icon className={cn("w-5 h-5", isActive ? "text-teal-400" : "text-slate-500")} />
+                                <Icon className={cn("w-5 h-5", isActive ? "text-teal-600" : "text-slate-400")} />
                                 {item.label}
                             </button>
                         );
@@ -90,15 +90,7 @@ export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile })
                         </div>
                     </div>
 
-                    <div className="pt-2 border-t border-slate-800 mt-2">
-                        <button
-                            onClick={toggleTheme}
-                            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
-                        >
-                            {theme === 'dark' ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5" />}
-                            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-                        </button>
-                    </div>
+
 
                     <button
                         onClick={logout}

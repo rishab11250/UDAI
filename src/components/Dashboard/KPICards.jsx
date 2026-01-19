@@ -76,14 +76,14 @@ export function KPICards() {
             {cards.map((card, idx) => {
                 const Icon = card.icon;
                 return (
-                    <Card key={idx} className="flex items-center gap-4">
-                        <div className={`p-3 rounded-lg ${card.bg} dark:bg-opacity-10 dark:border dark:border-white/5 dark:backdrop-blur-sm`}>
-                            <Icon className={`w-6 h-6 ${card.color} dark:opacity-90`} />
+                    <Card key={idx} className="flex items-center gap-4 border-slate-100/50">
+                        <div className={`p-3 rounded-lg ${card.bg}`}>
+                            <Icon className={`w-6 h-6 ${card.color}`} />
                         </div>
                         <div>
-                            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{card.label}</p>
-                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{card.value}</h3>
-                            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{card.trend}</p>
+                            <p className="text-sm font-medium text-slate-500">{card.label}</p>
+                            <h3 className="text-2xl font-bold text-slate-900">{card.value}</h3>
+                            <p className="text-xs text-slate-400 mt-1">{card.trend}</p>
                         </div>
                     </Card>
                 );

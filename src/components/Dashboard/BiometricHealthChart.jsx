@@ -36,7 +36,7 @@ export function BiometricHealthChart() {
                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#334155" : "#e2e8f0"} />
                             <XAxis
                                 dataKey="state"
-                                tick={{ fontSize: 10, fill: isDark ? "#94a3b8" : "#64748b" }}
+                                tick={{ fontSize: 10, fill: isDark ? "#cbd5e1" : "#64748b" }}
                                 interval={0}
                                 angle={-30}
                                 textAnchor="end"
@@ -46,7 +46,7 @@ export function BiometricHealthChart() {
                                 yAxisId="left"
                                 orientation="left"
                                 stroke={isDark ? "#94a3b8" : "#64748b"}
-                                tick={{ fill: isDark ? "#94a3b8" : "#64748b" }}
+                                tick={{ fill: isDark ? "#cbd5e1" : "#64748b" }}
                             />
                             <YAxis
                                 yAxisId="right"
@@ -56,7 +56,7 @@ export function BiometricHealthChart() {
                             />
                             <Tooltip
                                 contentStyle={{
-                                    backgroundColor: isDark ? '#1e293b' : '#fff',
+                                    backgroundColor: isDark ? '#0f172a' : '#fff',
                                     borderColor: isDark ? '#334155' : '#ccc',
                                     color: isDark ? '#fff' : '#000'
                                 }}

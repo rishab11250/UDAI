@@ -2,12 +2,6 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 transition-colors duration-300;
-  }
-
-  .dark body {
-    @apply text-slate-50;
-    background: radial-gradient(circle at top center, #1e293b, #020617);
-    min-height: 100vh;
+    @apply bg-slate-50 text-slate-900;
   }
 }

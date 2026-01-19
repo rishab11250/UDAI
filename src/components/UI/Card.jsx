@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils';
 export function Card({ className, children, clickable, onClick }) {
     return (
         <div
-            className={cn("bg-white dark:bg-slate-900/50 dark:backdrop-blur-md rounded-xl shadow-sm border border-slate-200 dark:border-white/10 p-6 transition-all", clickable && "cursor-pointer hover:shadow-md", className)}
+            className={cn("bg-white rounded-2xl shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] border border-slate-100/50 p-6 transition-all", clickable && "cursor-pointer hover:shadow-[0_8px_25px_-5px_rgba(0,0,0,0.1)] hover:-translate-y-0.5", className)}
             onClick={onClick}
         >
             {children}

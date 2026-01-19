@@ -46,12 +46,12 @@ export function EnrolmentTrendChart() {
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#334155" : "#e2e8f0"} />
                         <XAxis
                             dataKey="name"
-                            tick={{ fontSize: 12, fill: isDark ? "#94a3b8" : "#64748b" }}
+                            tick={{ fontSize: 12, fill: isDark ? "#cbd5e1" : "#64748b" }}
                             tickMargin={10}
                             interval={CHART_DATA.length > 10 ? 5 : 0}
                         />
                         <YAxis
-                            tick={{ fontSize: 12, fill: isDark ? "#94a3b8" : "#64748b" }}
+                            tick={{ fontSize: 12, fill: isDark ? "#cbd5e1" : "#64748b" }}
                             axisLine={false}
                             tickLine={false}
                         />
@@ -60,7 +60,7 @@ export function EnrolmentTrendChart() {
                                 borderRadius: '8px',
                                 border: isDark ? '1px solid #334155' : 'none',
                                 boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-                                backgroundColor: isDark ? '#1e293b' : '#fff',
+                                backgroundColor: isDark ? '#0f172a' : '#fff',
                                 color: isDark ? '#fff' : '#000'
                             }}
                         />
