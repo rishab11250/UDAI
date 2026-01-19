@@ -11,7 +11,10 @@ import { fetchRealData, aggregateData } from '../../data/api';
 import { Loader2, AlertCircle } from 'lucide-react';
 import { DataContext } from '../../context/DataContext';
 
+import { useAuth } from '../../context/AuthContext';
+
 export function Dashboard() {
+    const { user } = useAuth();
     const [activeTab, setActiveTab] = useState('overview');
     const [selectedYear, setSelectedYear] = useState('');
     const [selectedState, setSelectedState] = useState('');
@@ -74,6 +77,44 @@ export function Dashboard() {
             );
         }
 
+        // Role-Based Views
+        const role = user?.role || 'User';
+
+        if (role === 'User') {
+            // Users only see their profile stats or a limited view
+            // For now, let's redirect them to profile info or show limited KPIs
+            return (
+                <div className="space-y-6">
+                    <div className="bg-white dark:bg-slate-900/50 p-6 rounded-lg border border-slate-200 dark:border-white/10 text-center">
+                        <h3 className="text-lg font-medium text-slate-800 dark:text-white">Welcome, {user?.name}</h3>
+                        <p className="text-slate-500 dark:text-slate-400 mt-2">You have limited access. View your profile for account details.</p>
+                        <button
+                            onClick={() => window.location.href = '/profile'}
+                            className="mt-4 px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition"
+                        >
+                            Go to Profile
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        if (role === 'Manager') {
+            // Managers see high-level KPIs and Enrolment Trends (Financials/Growth)
+            switch (activeTab) {
+                case 'overview':
+                    return (
+                        <>
+                            <KPICards />
+                            <EnrolmentTrendChart />
+                        </>
+                    );
+                default:
+                    return <KPICards />;
+            }
+        }
+
+        // Analysts/Admins get full view (existing logic)
         switch (activeTab) {
             case 'overview':
                 return (
@@ -112,14 +153,14 @@ export function Dashboard() {
         <DataContext.Provider value={contextValue}>
             <DashboardLayout activeTab={activeTab} onTabChange={setActiveTab}>
                 <div className="mb-6">
-                    <h2 className="text-2xl font-bold text-slate-800">
+                    <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
                         {activeTab === 'overview' && 'Dashboard Overview'}
                         {activeTab === 'demographic' && 'Demographic Insights'}
                         {activeTab === 'biometric' && 'Biometric Health'}
                         {activeTab === 'migration' && 'Migration Map'}
                     </h2>
-                    <p className="text-slate-500">
-                        Real-time insight from Government Open Data APIs
+                    <p className="text-slate-500 dark:text-slate-400">
+                        {user?.role === 'Manager' ? 'Executive Summary & Key Metrics' : 'Real-time insight from Government Open Data APIs'}
                     </p>
                 </div>
 
