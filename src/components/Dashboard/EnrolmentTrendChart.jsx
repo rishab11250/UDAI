@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Card, CardHeader } from '../UI/Card';
 import { DataContext } from '../../context/DataContext';
+import { useTheme } from '../../context/ThemeContext';
 
 // Aggregate data by period (month-year)
 const processData = (data) => {
@@ -24,15 +25,13 @@ const processData = (data) => {
     });
 
     return Array.from(periodMap.values());
-    // Note: We might want to sort logic here if Real Data comes in mixed order.
-    // But our processRealData groups by Map key which preserves insertion order mostly?
-    // No, Map preserves insertion order. Our loop processes API records.
-    // We should sort by Date properly if we want a nice line chart.
-    // But keeping it simple for now as Mock data is pre-sorted.
 };
 
 export function EnrolmentTrendChart() {
     const { data } = useContext(DataContext);
+    const { theme } = useTheme();
+    const isDark = theme === 'dark';
+
     const CHART_DATA = processData(data);
 
     return (
@@ -44,26 +43,32 @@ export function EnrolmentTrendChart() {
             <div className="h-[350px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={CHART_DATA} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#334155" : "#e2e8f0"} />
                         <XAxis
                             dataKey="name"
-                            tick={{ fontSize: 12, fill: '#64748b' }}
+                            tick={{ fontSize: 12, fill: isDark ? "#94a3b8" : "#64748b" }}
                             tickMargin={10}
                             interval={CHART_DATA.length > 10 ? 5 : 0}
                         />
                         <YAxis
-                            tick={{ fontSize: 12, fill: '#64748b' }}
+                            tick={{ fontSize: 12, fill: isDark ? "#94a3b8" : "#64748b" }}
                             axisLine={false}
                             tickLine={false}
                         />
                         <Tooltip
-                            contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                            contentStyle={{
+                                borderRadius: '8px',
+                                border: isDark ? '1px solid #334155' : 'none',
+                                boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                                backgroundColor: isDark ? '#1e293b' : '#fff',
+                                color: isDark ? '#fff' : '#000'
+                            }}
                         />
                         <Legend wrapperStyle={{ paddingTop: '20px' }} />
                         <Line
                             type="monotone"
                             dataKey="NewEnrolments"
-                            stroke="#0f766e"
+                            stroke={isDark ? "#2dd4bf" : "#0f766e"}
                             strokeWidth={2}
                             name="New Enrolments"
                             dot={false}
@@ -72,7 +77,7 @@ export function EnrolmentTrendChart() {
                         <Line
                             type="monotone"
                             dataKey="TotalUpdates"
-                            stroke="#3b82f6"
+                            stroke={isDark ? "#60a5fa" : "#3b82f6"}
                             strokeWidth={2}
                             name="Total Updates"
                             dot={false}

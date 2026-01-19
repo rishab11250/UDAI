@@ -2,6 +2,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { Login } from './components/Auth/Login';
 import { Signup } from './components/Auth/Signup';
 import { Dashboard } from './components/Dashboard/Dashboard';
@@ -42,30 +43,32 @@ const PublicRoute = ({ children }) => {
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/login" element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          } />
-          <Route path="/signup" element={
-            <PublicRoute>
-              <Signup />
-            </PublicRoute>
-          } />
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          } />
-          <Route path="/profile" element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          } />
-        </Routes>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            } />
+            <Route path="/signup" element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            } />
+            <Route path="/" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/profile" element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            } />
+          </Routes>
+        </AuthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

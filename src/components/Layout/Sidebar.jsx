@@ -1,8 +1,9 @@
 import React from 'react';
-import { Home, Activity, Fingerprint, Map, Menu, LogOut, User } from 'lucide-react';
+import { Home, Activity, Fingerprint, Map, Menu, LogOut, User, Moon, Sun } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 
 const NAV_ITEMS = [
     { label: 'Overview', icon: Home, id: 'overview' },
@@ -14,6 +15,7 @@ const NAV_ITEMS = [
 
 export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile }) {
     const { logout } = useAuth();
+    const { theme, toggleTheme } = useTheme();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -86,6 +88,16 @@ export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile })
                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                             <span className="text-sm text-slate-300">Live Data Feed</span>
                         </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-slate-800 mt-2">
+                        <button
+                            onClick={toggleTheme}
+                            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
+                        >
+                            {theme === 'dark' ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5" />}
+                            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                        </button>
                     </div>
 
                     <button

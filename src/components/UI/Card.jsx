@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils';
 export function Card({ className, children, clickable, onClick }) {
     return (
         <div
-            className={cn("bg-white rounded-xl shadow-sm border border-slate-200 p-6 transition-all", clickable && "cursor-pointer hover:shadow-md", className)}
+            className={cn("bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 transition-all", clickable && "cursor-pointer hover:shadow-md", className)}
             onClick={onClick}
         >
             {children}
@@ -16,8 +16,8 @@ export function CardHeader({ title, subtitle, className, action }) {
     return (
         <div className={cn("mb-4 flex justify-between items-start", className)}>
             <div>
-                <h3 className="text-lg font-semibold text-slate-800">{title}</h3>
-                {subtitle && <p className="text-sm text-slate-500 mt-1">{subtitle}</p>}
+                <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">{title}</h3>
+                {subtitle && <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{subtitle}</p>}
             </div>
             {action && <div>{action}</div>}
         </div>

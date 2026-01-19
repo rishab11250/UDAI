@@ -77,13 +77,13 @@ export function KPICards() {
                 const Icon = card.icon;
                 return (
                     <Card key={idx} className="flex items-center gap-4">
-                        <div className={`p-3 rounded-lg ${card.bg}`}>
+                        <div className={`p-3 rounded-lg ${card.bg} dark:bg-opacity-20`}>
                             <Icon className={`w-6 h-6 ${card.color}`} />
                         </div>
                         <div>
-                            <p className="text-sm font-medium text-slate-500">{card.label}</p>
-                            <h3 className="text-2xl font-bold text-slate-900">{card.value}</h3>
-                            <p className="text-xs text-slate-400 mt-1">{card.trend}</p>
+                            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{card.label}</p>
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{card.value}</h3>
+                            <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{card.trend}</p>
                         </div>
                     </Card>
                 );
