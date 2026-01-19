@@ -158,9 +158,7 @@ export function AdminPanel() {
                                                             'bg-slate-50 text-slate-700 border-slate-100 hover:bg-slate-100'
                                                         }`}
                                                 >
-                                                    <option value="User">User</option>
                                                     <option value="Analyst">Analyst</option>
-                                                    <option value="Manager">Manager</option>
                                                     <option value="Admin">Admin</option>
                                                 </select>
                                                 {/* Custom Arrow because default select arrow is ugly */}

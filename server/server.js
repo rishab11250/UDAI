@@ -51,7 +51,7 @@ app.post('/api/auth/register', async (req, res) => {
     }
 
     const hashedPassword = bcrypt.hashSync(password, 8);
-    const userRole = req.body.role || 'User';
+    const userRole = req.body.role || 'Analyst';
 
     try {
         // Mongoose: Create user
@@ -183,7 +183,7 @@ app.patch('/api/users/:id/role', authenticateToken, async (req, res) => {
     }
 
     const { role } = req.body;
-    if (!['User', 'Manager', 'Analyst', 'Admin'].includes(role)) {
+    if (!['Analyst', 'Admin'].includes(role)) {
         return res.status(400).json({ error: "Invalid role" });
     }
 

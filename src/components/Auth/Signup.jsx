@@ -11,7 +11,7 @@ export function Signup() {
         name: '',
         email: '',
         password: '',
-        role: 'User'
+        role: 'Analyst'
     });
 
     const { register } = useAuth();
@@ -92,15 +92,7 @@ export function Signup() {
                         <label className="block text-sm font-medium text-slate-700 mb-1.5">Role</label>
                         <div className="relative">
                             <Fingerprint className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                            <select
-                                name="role"
-                                value={formData.role}
-                                onChange={handleChange}
-                                className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition-all bg-white appearance-none"
-                            >
-                                <option value="User">User</option>
                                 <option value="Analyst">Analyst</option>
-                                <option value="Manager">Manager</option>
                                 <option value="Admin">Admin</option>
                             </select>
                         </div>
@@ -142,7 +134,7 @@ export function Signup() {
                         Sign in
                     </Link>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
