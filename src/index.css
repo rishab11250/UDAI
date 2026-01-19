@@ -1,9 +1,5 @@
-@import "tailwindcss";
-
 @layer base {
   body {
-    body {
-      @apply bg-brand-base text-brand-primary;
-    }
+    @apply bg-slate-50 text-slate-900;
   }
 }

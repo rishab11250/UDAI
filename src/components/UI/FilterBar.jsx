@@ -2,7 +2,7 @@ import React from 'react';
 import { Filter } from 'lucide-react';
 import { STATE_LIST } from '../../data/api';
 
-export function FilterBar({ onYearChange, onStateChange }) {
+export function FilterBar({ onYearChange, onStateChange, selectedState, selectedYear }) {
     // Generate last 5 years
     const years = Array.from({ length: 5 }, (_, i) => new Date().getFullYear() - i);
 
@@ -24,9 +24,9 @@ export function FilterBar({ onYearChange, onStateChange }) {
                 </select>
 
                 <select
-                    className="flex-1 md:w-48 p-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
+                    className="flex-1 md:w-48 p-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
                     onChange={(e) => onStateChange && onStateChange(e.target.value)}
-                    defaultValue=""
+                    value={selectedState}
                 >
                     <option value="">All States</option>
                     {STATE_LIST.sort().map(s => <option key={s} value={s}>{s}</option>)}

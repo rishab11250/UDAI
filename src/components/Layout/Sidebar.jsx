@@ -30,14 +30,14 @@ export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile })
             )}
 
             <div className={cn(
-                "fixed md:static inset-y-0 left-0 z-30 w-64 bg-brand-primary border-r border-brand-primary/90 text-brand-base transform transition-transform duration-200 ease-in-out md:translate-x-0 shadow-xl md:shadow-none",
+                "fixed md:static inset-y-0 left-0 z-30 w-64 bg-slate-900 border-r border-slate-800 text-white transform transition-transform duration-200 ease-in-out md:translate-x-0 shadow-xl md:shadow-none",
                 isMobileOpen ? "translate-x-0" : "-translate-x-full"
             )}>
-                <div className="p-6 border-b border-brand-primary/80 flex items-center gap-3">
-                    <div className="w-8 h-8 bg-brand-accent rounded-lg flex items-center justify-center shadow-lg shadow-brand-accent/20">
+                <div className="p-6 border-b border-slate-800 flex items-center gap-3">
+                    <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
                         <Fingerprint className="text-white w-5 h-5" />
                     </div>
-                    <h1 className="text-xl font-bold tracking-tight text-brand-base">Aadhaar<span className="text-brand-secondary">Pulse</span></h1>
+                    <h1 className="text-xl font-bold tracking-tight text-white">Aadhaar<span className="text-indigo-500">Pulse</span></h1>
                 </div>
 
                 <nav className="p-4 space-y-2">
@@ -70,11 +70,11 @@ export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile })
                                 className={cn(
                                     "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200",
                                     isActive
-                                        ? "bg-brand-accent text-white shadow-md shadow-brand-accent/20 font-bold"
-                                        : "text-brand-secondary/70 hover:bg-brand-primary/50 hover:text-brand-base"
+                                        ? "bg-indigo-600 text-white shadow-md shadow-indigo-900/20"
+                                        : "text-slate-400 hover:bg-slate-800 hover:text-white"
                                 )}
                             >
-                                <Icon className={cn("w-5 h-5", isActive ? "text-white" : "text-brand-secondary")} />
+                                <Icon className={cn("w-5 h-5", isActive ? "text-indigo-200" : "text-slate-500")} />
                                 {item.label}
                             </button>
                         );

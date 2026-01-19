@@ -41,32 +41,32 @@ export function KPICards() {
             label: 'Total Enrolments',
             value: metrics.totalEnrolments.toLocaleString(),
             icon: Users,
-            color: 'text-brand-primary', // Prussian Blue
-            bg: 'bg-brand-secondary/20', // Air Blue tint
+            color: 'text-indigo-600',
+            bg: 'bg-indigo-50',
             trend: 'Aggregated View'
         },
         {
             label: 'MBU Compliance',
             value: `${metrics.mbuCompliance.toFixed(1)}%`,
             icon: Fingerprint,
-            color: 'text-brand-accent', // Red
-            bg: 'bg-brand-accent/10',
+            color: 'text-violet-600',
+            bg: 'bg-violet-50',
             trend: 'Bio / Child Enrol'
         },
         {
             label: 'Migration Intensity',
             value: `${metrics.migrationIntensity.toFixed(1)}%`,
             icon: MapPin,
-            color: 'text-brand-secondary', // Air Blue
-            bg: 'bg-brand-primary/5',
+            color: 'text-blue-600',
+            bg: 'bg-blue-50',
             trend: 'Addr / Enrol'
         },
         {
             label: 'Digital Readiness',
             value: `${metrics.digitalReadiness.toFixed(1)}%`,
             icon: Smartphone,
-            color: 'text-brand-accent-dark', // Dark Red
-            bg: 'bg-brand-accent/10',
+            color: 'text-indigo-600',
+            bg: 'bg-indigo-50',
             trend: 'Mobile / Updates'
         }
     ];
@@ -81,9 +81,9 @@ export function KPICards() {
                             <Icon className={`w-6 h-6 ${card.color}`} />
                         </div>
                         <div>
-                            <p className="text-sm font-medium text-brand-secondary">{card.label}</p>
-                            <h3 className="text-2xl font-bold text-brand-primary">{card.value}</h3>
-                            <p className="text-xs text-brand-secondary/70 mt-1">{card.trend}</p>
+                            <p className="text-sm font-medium text-slate-500">{card.label}</p>
+                            <h3 className="text-2xl font-bold text-slate-900">{card.value}</h3>
+                            <p className="text-xs text-slate-400 mt-1">{card.trend}</p>
                         </div>
                     </Card>
                 );

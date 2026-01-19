@@ -108,7 +108,7 @@ export function Dashboard() {
                             <KPICards />
                             <EnrolmentTrendChart />
                             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                                <MigrationChart />
+                                <MigrationChart onStateClick={setSelectedState} />
                                 <DigitalReadinessChart />
                             </div>
                         </>
@@ -131,7 +131,7 @@ export function Dashboard() {
                     return (
                         <div className="space-y-8">
                             <KPICards />
-                            <MigrationChart />
+                            <MigrationChart onStateClick={setSelectedState} />
                         </div>
                     );
                 default:
@@ -147,7 +147,7 @@ export function Dashboard() {
                         <KPICards />
                         <EnrolmentTrendChart />
                         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                            <MigrationChart />
+                            <MigrationChart onStateClick={setSelectedState} />
                             <DigitalReadinessChart />
                         </div>
                         <BiometricHealthChart />
@@ -158,7 +158,7 @@ export function Dashboard() {
                 return (
                     <div className="space-y-8">
                         <KPICards />
-                        <MigrationChart />
+                        <MigrationChart onStateClick={setSelectedState} />
                         <EnrolmentTrendChart />
                     </div>
                 );
@@ -190,11 +190,21 @@ export function Dashboard() {
                 </div>
 
                 <FilterBar
+                    selectedYear={selectedYear}
+                    selectedState={selectedState}
                     onYearChange={setSelectedYear}
                     onStateChange={setSelectedState}
                 />
 
                 <div className="animate-in fade-in duration-500 min-h-[500px]">
+                    {/* Hack: We need to pass props to children, but they are hardcoded in renderFunctions. 
+                        Better to Context-ify the setters OR just cloneElement/refactor. 
+                        For now, since MigrationChart uses Context for data, we can just add a new Context for Actions 
+                        or pass via props if we refactor renderContent. 
+                        
+                        Actually, simplest is to just Pass the Setter via DataContext? No, separation of concerns.
+                        Let's just pass it to MigrationChart explicitly in the render blocks.
+                    */}
                     {renderContent()}
                 </div>
             </DashboardLayout>

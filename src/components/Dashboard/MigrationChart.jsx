@@ -5,7 +5,7 @@ import { aggregateData } from '../../data/api';
 import { DataContext } from '../../context/DataContext';
 import { useTheme } from '../../context/ThemeContext';
 
-export function MigrationChart() {
+export function MigrationChart({ onStateClick }) {
     const { data: rawData } = useContext(DataContext);
     const { theme } = useTheme();
     const isDark = theme === 'dark';
@@ -52,11 +52,19 @@ export function MigrationChart() {
                                 return null;
                             }}
                         />
-                        <Bar dataKey="totalAddressUpdates" name="Inward Migration Intensity" radius={[0, 4, 4, 0]} barSize={24}>
+                        <Bar
+                            dataKey="totalAddressUpdates"
+                            name="Inward Migration Intensity"
+                            radius={[0, 4, 4, 0]}
+                            barSize={24}
+                            onClick={(data) => onStateClick && onStateClick(data.state)}
+                            className="cursor-pointer"
+                        >
                             {data.map((entry, index) => (
                                 <Cell
                                     key={`cell-${index}`}
                                     fill={index < 3 ? '#ef4444' : '#3b82f6'}
+                                    className="hover:opacity-80 transition-opacity"
                                 />
                             ))}
                         </Bar>
