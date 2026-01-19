@@ -119,6 +119,17 @@ app.get('/api/auth/me', authenticateToken, async (req, res) => {
     }
 });
 
+// Get Activity Logs Endpoint
+app.get('/api/logs', authenticateToken, async (req, res) => {
+    try {
+        // Fetch logs for the logged-in user, sorted by newest first
+        const logs = await AuditLog.find({ userId: req.user.id }).sort({ timestamp: -1 }).limit(20);
+        res.json(logs);
+    } catch (err) {
+        res.status(500).json({ error: "Failed to fetch logs" });
+    }
+});
+
 // Fallback to React app
 app.get('*', (req, res) => {
     res.sendFile(join(__dirname, '../dist/index.html'));
