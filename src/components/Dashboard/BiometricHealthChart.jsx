@@ -29,13 +29,13 @@ export function BiometricHealthChart() {
                 />
                 <div className="h-[350px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
-                        <ComposedChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                        <ComposedChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                             <CartesianGrid strokeDasharray="3 3" vertical={false} />
                             <XAxis dataKey="state" tick={{ fontSize: 10 }} interval={0} angle={-30} textAnchor="end" height={60} />
                             <YAxis yAxisId="left" orientation="left" stroke="#64748b" />
                             <YAxis yAxisId="right" orientation="right" stroke="#0f766e" />
                             <Tooltip />
-                            <Legend />
+                            <Legend verticalAlign="top" height={36} />
                             <Bar
                                 yAxisId="left"
                                 dataKey="childEnrolmentsLagged"

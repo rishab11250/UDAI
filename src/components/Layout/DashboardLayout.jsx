@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { Menu } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export function DashboardLayout({ children, activeTab, onTabChange }) {
     const [isMobileOpen, setIsMobileOpen] = useState(false);
+    const { user } = useAuth();
 
     return (
         <div className="flex min-h-screen bg-slate-50">
@@ -21,6 +23,28 @@ export function DashboardLayout({ children, activeTab, onTabChange }) {
                     </button>
                     <h1 className="font-semibold text-slate-900">AadhaarPulse</h1>
                 </header>
+
+                {/* Desktop Header for Profile */}
+                <div className="hidden md:flex justify-between items-center bg-white border-b border-slate-200 px-8 py-4">
+                    <h2 className="text-xl font-semibold text-slate-800">
+                        {/* Dynamic Title based on activeTab could go here if managed by parent */}
+                        Dashboard
+                    </h2>
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => window.location.href = '/profile'}
+                            className="flex items-center gap-3 hover:bg-slate-50 p-2 rounded-lg transition-colors border border-transparent hover:border-slate-200"
+                        >
+                            <div className="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center text-teal-700 font-bold text-sm">
+                                {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                            </div>
+                            <div className="text-left hidden lg:block">
+                                <p className="text-sm font-medium text-slate-700 leading-none">{user?.name || 'Guest User'}</p>
+                                <p className="text-xs text-slate-500 mt-1">View Profile</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
 
                 <main className="flex-1 p-4 md:p-8 overflow-y-auto">
                     <div className="max-w-7xl mx-auto">

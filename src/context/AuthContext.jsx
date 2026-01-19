@@ -12,11 +12,27 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         // Check for existing token on mount
         const token = localStorage.getItem('token');
-        const userData = localStorage.getItem('user');
-        if (token && userData) {
-            setUser(JSON.parse(userData));
+        if (token) {
+            // Verify token with backend
+            fetch(`${API_URL}/api/auth/me`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+                .then(res => {
+                    if (res.ok) return res.json();
+                    throw new Error('Session invalid');
+                })
+                .then(userData => {
+                    setUser(userData);
+                })
+                .catch(() => {
+                    logout();
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        } else {
+            setLoading(false);
         }
-        setLoading(false);
     }, []);
 
     const login = async (email, password) => {
@@ -39,12 +55,12 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const register = async (name, email, password) => {
+    const register = async (name, email, password, role) => {
         try {
             const response = await fetch(`${API_URL}/api/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password }),
+                body: JSON.stringify({ name, email, password, role }),
             });
             const data = await response.json();
 

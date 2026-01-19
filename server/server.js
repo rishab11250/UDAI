@@ -12,6 +12,20 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const SECRET_KEY = process.env.JWT_SECRET || 'your-secret-key-123';
 
+// Middleware to verify Token
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token, SECRET_KEY, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+};
+
 // Serve static files from the React app
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -30,9 +44,10 @@ app.post('/api/auth/register', (req, res) => {
     }
 
     const hashedPassword = bcrypt.hashSync(password, 8);
+    const userRole = req.body.role || 'User';
 
-    const stmt = db.prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-    stmt.run(name, email, hashedPassword, function (err) {
+    const stmt = db.prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
+    stmt.run(name, email, hashedPassword, userRole, function (err) {
         if (err) {
             if (err.message.includes('UNIQUE constraint failed')) {
                 return res.status(400).json({ error: "Email already exists" });
@@ -71,8 +86,17 @@ app.post('/api/auth/login', (req, res) => {
         res.status(200).json({
             message: "Login successful",
             accessToken: token,
-            user: { id: user.id, name: user.name, email: user.email }
+            user: { id: user.id, name: user.name, email: user.email, role: user.role }
         });
+    });
+});
+
+// Verify Session Endpoint
+app.get('/api/auth/me', authenticateToken, (req, res) => {
+    db.get("SELECT id, name, email, role FROM users WHERE id = ?", [req.user.id], (err, user) => {
+        if (err) return res.status(500).json({ error: "Database error" });
+        if (!user) return res.status(404).json({ error: "User not found" });
+        res.json(user);
     });
 });
 

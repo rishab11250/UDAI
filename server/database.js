@@ -16,6 +16,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
             name TEXT,
             email TEXT UNIQUE,
             password TEXT,
+            role TEXT DEFAULT 'User',
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
         )`, (err) => {
             if (err) {

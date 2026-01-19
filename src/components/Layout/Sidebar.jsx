@@ -1,5 +1,6 @@
 import React from 'react';
-import { Home, Activity, Fingerprint, Map, Menu, LogOut } from 'lucide-react';
+import { Home, Activity, Fingerprint, Map, Menu, LogOut, User } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '../../lib/utils';
 import { useAuth } from '../../context/AuthContext';
 
@@ -8,10 +9,14 @@ const NAV_ITEMS = [
     { label: 'Demographic Decay', icon: Activity, id: 'demographic' },
     { label: 'Biometric Health', icon: Fingerprint, id: 'biometric' },
     { label: 'Migration Map', icon: Map, id: 'migration' },
+    { label: 'My Profile', icon: User, id: 'profile', path: '/profile' },
 ];
 
 export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile }) {
     const { logout } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+
     return (
         <>
             {/* Mobile overlay */}
@@ -36,12 +41,28 @@ export function Sidebar({ activeTab, onTabChange, isMobileOpen, onCloseMobile })
                 <nav className="p-4 space-y-2">
                     {NAV_ITEMS.map((item) => {
                         const Icon = item.icon;
-                        const isActive = activeTab === item.id;
+                        // Active if:
+                        // 1. We are on the dashboard ('/') AND this tab is active
+                        // 2. OR We are on the specific path defined by the item
+                        const isDashboardItem = !item.path;
+                        const isActive = isDashboardItem
+                            ? activeTab === item.id && location.pathname === '/'
+                            : location.pathname === item.path;
+
                         return (
                             <button
                                 key={item.id}
                                 onClick={() => {
-                                    onTabChange(item.id);
+                                    if (item.path) {
+                                        // Navigate to specific route (e.g. /profile)
+                                        navigate(item.path);
+                                    } else {
+                                        // Dashboard tab
+                                        if (location.pathname !== '/') {
+                                            navigate('/');
+                                        }
+                                        onTabChange(item.id);
+                                    }
                                     onCloseMobile();
                                 }}
                                 className={cn(
