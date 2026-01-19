@@ -53,6 +53,32 @@ export function AdminPanel() {
         }
     };
 
+    const handleRoleChange = async (userId, newRole) => {
+        try {
+            const token = localStorage.getItem('token');
+            const API_URL = import.meta.env.PROD ? '' : 'http://localhost:3000';
+            const res = await fetch(`${API_URL}/api/users/${userId}/role`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ role: newRole })
+            });
+
+            if (res.ok) {
+                // Optimistic UI update or re-fetch
+                setUsers(users.map(u =>
+                    u._id === userId ? { ...u, role: newRole } : u
+                ));
+            } else {
+                alert("Failed to update role");
+            }
+        } catch (err) {
+            alert("Error updating role");
+        }
+    };
+
     const filteredUsers = users.filter(u =>
         u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         u.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -122,12 +148,30 @@ export function AdminPanel() {
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${u.role === 'Admin' ? 'bg-purple-50 text-purple-700 border-purple-100' :
-                                                    u.role === 'Manager' ? 'bg-blue-50 text-blue-700 border-blue-100' :
-                                                        'bg-slate-50 text-slate-700 border-slate-100'
-                                                }`}>
-                                                {u.role}
-                                            </span>
+                                            <div className="relative group">
+                                                <select
+                                                    value={u.role}
+                                                    onChange={(e) => handleRoleChange(u._id, e.target.value)}
+                                                    disabled={u._id === user._id}
+                                                    className={`appearance-none pl-3 pr-8 py-1 rounded-full text-xs font-medium border cursor-pointer outline-none focus:ring-2 focus:ring-offset-1 focus:ring-indigo-500 transition-all ${u.role === 'Admin' ? 'bg-purple-50 text-purple-700 border-purple-100 hover:bg-purple-100' :
+                                                        u.role === 'Manager' ? 'bg-blue-50 text-blue-700 border-blue-100 hover:bg-blue-100' :
+                                                            'bg-slate-50 text-slate-700 border-slate-100 hover:bg-slate-100'
+                                                        }`}
+                                                >
+                                                    <option value="User">User</option>
+                                                    <option value="Analyst">Analyst</option>
+                                                    <option value="Manager">Manager</option>
+                                                    <option value="Admin">Admin</option>
+                                                </select>
+                                                {/* Custom Arrow because default select arrow is ugly */}
+                                                <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
+                                                    <svg className={`w-3 h-3 ${u.role === 'Admin' ? 'text-purple-400' :
+                                                        u.role === 'Manager' ? 'text-blue-400' : 'text-slate-400'
+                                                        }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                    </svg>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td className="px-6 py-4 text-sm text-slate-500">
                                             <div className="flex items-center gap-1.5">

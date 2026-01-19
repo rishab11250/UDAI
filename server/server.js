@@ -176,6 +176,26 @@ app.delete('/api/users/:id', authenticateToken, async (req, res) => {
     }
 });
 
+// Admin: Update User Role
+app.patch('/api/users/:id/role', authenticateToken, async (req, res) => {
+    if (req.user.role !== 'Admin') {
+        return res.status(403).json({ error: "Admin access required" });
+    }
+
+    const { role } = req.body;
+    if (!['User', 'Manager', 'Analyst', 'Admin'].includes(role)) {
+        return res.status(400).json({ error: "Invalid role" });
+    }
+
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id, { role }, { new: true });
+        res.json(user);
+        logActivity(req.user.id, "UPDATE_ROLE", `Admin changed role of ${user.name} to ${role}`);
+    } catch (err) {
+        res.status(500).json({ error: "Failed to update role" });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
