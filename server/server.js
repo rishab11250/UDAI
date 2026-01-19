@@ -135,6 +135,47 @@ app.get('*', (req, res) => {
     res.sendFile(join(__dirname, '../dist/index.html'));
 });
 
+// Middleware to check specific role
+const checkRole = (roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            return res.status(403).json({ error: "Access denied. Insufficient permissions." });
+        }
+        next();
+    };
+};
+
+// Admin: Get All Users
+app.get('/api/users', authenticateToken, async (req, res) => {
+    // Only Admin can see full user list
+    if (req.user.role !== 'Admin') {
+        return res.status(403).json({ error: "Admin access required" });
+    }
+
+    try {
+        const users = await User.find({}, '-password').sort({ createdAt: -1 });
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ error: "Failed to fetch users" });
+    }
+});
+
+// Admin: Delete User
+app.delete('/api/users/:id', authenticateToken, async (req, res) => {
+    if (req.user.role !== 'Admin') {
+        return res.status(403).json({ error: "Admin access required" });
+    }
+
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        await AuditLog.deleteMany({ userId: req.params.id }); // Clean up logs
+        res.json({ message: "User deleted successfully" });
+        logActivity(req.user.id, "DELETE_USER", `Admin deleted user ${req.params.id}`);
+    } catch (err) {
+        res.status(500).json({ error: "Failed to delete user" });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

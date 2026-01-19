@@ -7,6 +7,7 @@ import { Login } from './components/Auth/Login';
 import { Signup } from './components/Auth/Signup';
 import { Dashboard } from './components/Dashboard/Dashboard';
 import { Profile } from './components/Dashboard/Profile';
+import { AdminPanel } from './components/Admin/AdminPanel';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -64,6 +65,11 @@ function App() {
             <Route path="/profile" element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin" element={
+              <ProtectedRoute>
+                <AdminPanel />
               </ProtectedRoute>
             } />
           </Routes>
