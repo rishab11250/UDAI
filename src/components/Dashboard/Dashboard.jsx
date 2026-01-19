@@ -7,6 +7,7 @@ import { BiometricHealthChart } from './BiometricHealthChart';
 import { MigrationChart } from './MigrationChart';
 import { DigitalReadinessChart } from './DigitalReadinessChart';
 import { FilterBar } from '../UI/FilterBar';
+import { ForecastingChart } from './ForecastingChart';
 import { fetchRealData, aggregateData } from '../../data/api';
 import { Loader2, AlertCircle } from 'lucide-react';
 import { DataContext } from '../../context/DataContext';
@@ -120,6 +121,7 @@ export function Dashboard() {
                     return (
                         <div className="space-y-8">
                             <KPICards />
+                            <ForecastingChart />
                             <EnrolmentTrendChart />
                         </div>
                     );
@@ -161,8 +163,11 @@ export function Dashboard() {
                 return (
                     <div className="space-y-8">
                         <KPICards />
-                        <MigrationChart onStateClick={setSelectedState} />
-                        <EnrolmentTrendChart />
+                        <ForecastingChart />
+                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                            <MigrationChart onStateClick={setSelectedState} />
+                            <EnrolmentTrendChart />
+                        </div>
                     </div>
                 );
             case 'biometric':
