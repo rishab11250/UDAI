@@ -58,9 +58,12 @@ export function DashboardLayout({ children, activeTab, onTabChange }) {
                  but for simplicity, I'll export a context or just pass props down?
                  Let's stick to simple props for 'activeTab'.
               */}
-                        {React.Children.map(children, child =>
-                            React.cloneElement(child, { activeTab })
-                        )}
+                        {React.Children.map(children, child => {
+                            if (React.isValidElement(child)) {
+                                return React.cloneElement(child, { activeTab });
+                            }
+                            return child;
+                        })}
                     </div>
                 </main>
             </div>

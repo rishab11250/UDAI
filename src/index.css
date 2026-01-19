@@ -1,5 +1,14 @@
-@layer base {
-  body {
-    @apply bg-slate-50 text-slate-900;
-  }
+@import "tailwindcss";
+
+@theme {
+  --color-brand-base: #f8fafc;
+  --color-brand-surface: #ffffff;
+  --color-brand-accent: #6366f1;
+  --color-brand-dark: #e2e8f0;
+  --color-brand-darker: #0f172a;
+}
+
+body {
+  background-color: var(--color-slate-50);
+  color: var(--color-slate-900);
 }

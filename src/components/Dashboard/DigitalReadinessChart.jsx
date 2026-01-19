@@ -30,13 +30,13 @@ export function DigitalReadinessChart() {
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? "#334155" : "#e2e8f0"} />
                         <XAxis
                             dataKey="state"
-                            tick={{ fontSize: 10, fill: isDark ? "#cbd5e1" : "#64748b" }}
+                            tick={{ fontSize: 10, fill: "#475569" }}
                             interval={0}
                             angle={-30}
                             textAnchor="end"
                             height={60}
                         />
-                        <YAxis tick={{ fontSize: 12, fill: isDark ? "#cbd5e1" : "#64748b" }} />
+                        <YAxis tick={{ fontSize: 12, fill: "#475569" }} />
                         <Tooltip
                             contentStyle={{
                                 backgroundColor: isDark ? '#0f172a' : '#fff',
@@ -45,9 +45,9 @@ export function DigitalReadinessChart() {
                             }}
                         />
                         <Legend />
-                        <Bar dataKey="totalMobileUpdates" name="Mobile" stackId="a" fill="#3b82f6" />
-                        <Bar dataKey="totalAddressUpdates" name="Address" stackId="a" fill="#10b981" />
-                        <Bar dataKey="totalBioUpdates" name="Biometric (In-Center)" stackId="a" fill="#ef4444" />
+                        <Bar dataKey="totalMobileUpdates" name="Mobile" stackId="a" fill="#3b82f6" /> {/* Blue-500 */}
+                        <Bar dataKey="totalAddressUpdates" name="Address" stackId="a" fill="#10b981" /> {/* Emerald-500 */}
+                        <Bar dataKey="totalBioUpdates" name="Biometric (In-Center)" stackId="a" fill="#f43f5e" /> {/* Rose-500 */}
                     </BarChart>
                 </ResponsiveContainer>
             </div>

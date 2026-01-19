@@ -19,6 +19,7 @@ export function MigrationChart({ onStateClick }) {
             <CardHeader
                 title="Migration Patterns"
                 subtitle="Top States by Address Update Intensity"
+                className="text-slate-800"
             />
             <div className="h-[400px] w-full">
                 <ResponsiveContainer width="100%" height="100%">

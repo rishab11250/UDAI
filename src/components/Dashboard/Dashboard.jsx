@@ -181,7 +181,7 @@ export function Dashboard() {
         <DataContext.Provider value={contextValue}>
             <DashboardLayout activeTab={activeTab} onTabChange={setActiveTab}>
                 <div className="mb-6">
-                    <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
+                    <h2 className="text-2xl font-bold text-indigo-700">
                         {activeTab === 'overview' && 'Dashboard Overview'}
                         {activeTab === 'demographic' && 'Demographic Insights'}
                         {activeTab === 'biometric' && 'Biometric Health'}

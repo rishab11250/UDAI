@@ -68,19 +68,19 @@ export function EnrolmentTrendChart() {
                         <Line
                             type="monotone"
                             dataKey="NewEnrolments"
-                            stroke={isDark ? "#2dd4bf" : "#0f766e"}
-                            strokeWidth={2}
+                            stroke="#0d9488" // Teal-600
+                            strokeWidth={3}
                             name="New Enrolments"
-                            dot={false}
+                            dot={{ fill: '#0d9488', r: 4 }}
                             activeDot={{ r: 6 }}
                         />
                         <Line
                             type="monotone"
                             dataKey="TotalUpdates"
-                            stroke={isDark ? "#60a5fa" : "#3b82f6"}
-                            strokeWidth={2}
+                            stroke="#3b82f6" // Blue-500
+                            strokeWidth={3}
                             name="Total Updates"
-                            dot={false}
+                            dot={{ fill: '#3b82f6', r: 4 }}
                             activeDot={{ r: 6 }}
                         />
                     </LineChart>
