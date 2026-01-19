@@ -2,6 +2,8 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900;
+    body {
+      @apply bg-brand-base text-brand-darker;
+    }
   }
 }
